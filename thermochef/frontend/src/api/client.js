@@ -23,7 +23,7 @@ api.interceptors.response.use(
   (res) => res,
   (err) => {
     if (!err.response && err.code === 'ERR_NETWORK') {
-      console.warn('ThermoChef: cannot reach backend at', getApiUrl())
+      console.debug('ThermoChef: backend not reachable at', getApiUrl())
     }
     return Promise.reject(err)
   }

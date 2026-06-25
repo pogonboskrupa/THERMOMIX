@@ -24,17 +24,6 @@ export default defineConfig({
               expiration: { maxEntries: 10, maxAgeSeconds: 60 * 60 * 24 * 365 },
             },
           },
-          {
-            // Cache API responses for offline recipe viewing
-            urlPattern: ({ url }) => url.pathname.startsWith('/api/recipes'),
-            handler: 'NetworkFirst',
-            options: {
-              cacheName: 'api-recipes-cache',
-              networkTimeoutSeconds: 5,
-              expiration: { maxEntries: 100, maxAgeSeconds: 60 * 60 * 24 * 7 },
-              cacheableResponse: { statuses: [0, 200] },
-            },
-          },
         ],
       },
     }),
