@@ -123,13 +123,17 @@ def _extract_from_jsonld(data: dict, result: dict):
 
     keywords = data.get("keywords", "")
     if keywords:
-        result["tags"] = [k.strip() for k in re.split(r"[,;]", keywords) if k.strip()]
+        if isinstance(keywords, list):
+            result["tags"] = [str(k).strip() for k in keywords if str(k).strip()]
+        else:
+            result["tags"] = [k.strip() for k in re.split(r"[,;]", str(keywords)) if k.strip()]
     category = data.get("recipeCategory", "")
     if category:
-        if isinstance(category, list):
-            result["tags"].extend(category)
-        elif category not in result["tags"]:
-            result["tags"].append(category)
+        cats = category if isinstance(category, list) else [category]
+        for c in cats:
+            c = str(c).strip()
+            if c and c not in result["tags"]:
+                result["tags"].append(c)
 
     # Difficulty from suitableForDiet or custom
     suitable = data.get("recipeDifficulty", data.get("difficulty", ""))

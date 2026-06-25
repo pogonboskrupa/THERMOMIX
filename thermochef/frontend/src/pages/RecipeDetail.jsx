@@ -2,20 +2,13 @@ import { useState, useEffect } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import {
   Clock, Users, ChefHat, ArrowLeft, Edit, Trash2, Copy, Download,
-  RefreshCw, CheckCircle, AlertCircle, Thermometer, Zap, Timer, Wrench, Printer
+  Thermometer, Zap, Timer, Wrench, Printer
 } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { recipesApi, cookidooApi } from '../api/client'
 
 const difficultyLabel = { easy: 'Lako', medium: 'Srednje', hard: 'Teško' }
 const difficultyColor = { easy: 'text-green-600', medium: 'text-yellow-600', hard: 'text-red-600' }
-
-const syncBadge = {
-  synced: <span className="badge bg-green-100 text-green-700 flex items-center gap-1"><CheckCircle className="w-3 h-3" /> Synced</span>,
-  pending: <span className="badge bg-yellow-100 text-yellow-700 flex items-center gap-1"><RefreshCw className="w-3 h-3" /> Na čekanju</span>,
-  error: <span className="badge bg-red-100 text-red-700 flex items-center gap-1"><AlertCircle className="w-3 h-3" /> Greška</span>,
-  not_synced: <span className="badge bg-gray-100 text-gray-500">Nije sinkronizirano</span>,
-}
 
 function formatDuration(secs) {
   if (!secs) return null
@@ -29,7 +22,6 @@ export default function RecipeDetail() {
   const navigate = useNavigate()
   const [recipe, setRecipe] = useState(null)
   const [loading, setLoading] = useState(true)
-  const [syncing, setSyncing] = useState(false)
 
   useEffect(() => {
     recipesApi.get(id).then((r) => {
@@ -52,23 +44,6 @@ export default function RecipeDetail() {
     const res = await recipesApi.duplicate(id)
     toast.success('Recept kopiran')
     navigate(`/recipes/${res.data.id}`)
-  }
-
-  const handleSync = async () => {
-    setSyncing(true)
-    try {
-      const res = await cookidooApi.syncOne(id)
-      if (res.data.success) {
-        toast.success('Sinkronizirano s Cookidoo!')
-        setRecipe((r) => ({ ...r, cookidoo_sync_status: 'synced' }))
-      } else {
-        toast.error(res.data.error || 'Sinkronizacija nije uspjela')
-      }
-    } catch (e) {
-      toast.error(e.response?.data?.detail || 'Greška')
-    } finally {
-      setSyncing(false)
-    }
   }
 
   const handleExportZip = async () => {
@@ -111,11 +86,7 @@ export default function RecipeDetail() {
             <Printer className="w-4 h-4" /> Print
           </button>
           <button onClick={handleExportZip} className="btn-secondary">
-            <Download className="w-4 h-4" /> Export ZIP
-          </button>
-          <button onClick={handleSync} disabled={syncing} className="btn-secondary">
-            <RefreshCw className={`w-4 h-4 ${syncing ? 'animate-spin' : ''}`} />
-            {syncing ? 'Sync...' : 'Cookidoo Sync'}
+            <Download className="w-4 h-4" /> Cookidoo ZIP
           </button>
           <button onClick={handleDuplicate} className="btn-secondary">
             <Copy className="w-4 h-4" /> Kopiraj
@@ -140,7 +111,6 @@ export default function RecipeDetail() {
       <div className="mb-6">
         <div className="flex items-start justify-between gap-4 mb-2">
           <h1 className="text-3xl font-bold text-gray-900">{recipe.title}</h1>
-          {syncBadge[recipe.cookidoo_sync_status] || syncBadge.not_synced}
         </div>
         {recipe.description && <p className="text-gray-600 mt-2">{recipe.description}</p>}
 

@@ -111,10 +111,16 @@ async def scrape_coolinarika(url: str) -> dict:
                 # Tags / categories
                 keywords = data.get("keywords", "")
                 if keywords:
-                    result["tags"] = [k.strip() for k in keywords.split(",") if k.strip()]
+                    if isinstance(keywords, list):
+                        result["tags"] = [str(k).strip() for k in keywords if str(k).strip()]
+                    else:
+                        result["tags"] = [k.strip() for k in str(keywords).split(",") if k.strip()]
                 category = data.get("recipeCategory", "")
-                if category and category not in result["tags"]:
-                    result["tags"].append(category)
+                if category:
+                    cats = category if isinstance(category, list) else [category]
+                    for c in cats:
+                        if c and c not in result["tags"]:
+                            result["tags"].append(c)
 
                 # Difficulty from aggregateRating or custom field
                 if not result["title"]:

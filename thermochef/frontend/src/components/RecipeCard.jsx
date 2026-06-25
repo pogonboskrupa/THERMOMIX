@@ -1,5 +1,8 @@
 import { Link } from 'react-router-dom'
-import { Clock, Users, ChefHat, CheckCircle, AlertCircle, RefreshCw, Minus } from 'lucide-react'
+import { Clock, Users, ChefHat, Download, Loader } from 'lucide-react'
+import { useState } from 'react'
+import toast from 'react-hot-toast'
+import { cookidooApi } from '../api/client'
 
 const difficultyLabels = { easy: 'Lako', medium: 'Srednje', hard: 'Teško' }
 const difficultyColors = {
@@ -8,22 +11,28 @@ const difficultyColors = {
   hard: 'bg-red-100 text-red-700',
 }
 
-const syncStatusIcon = {
-  synced: <CheckCircle className="w-3.5 h-3.5 text-green-500" />,
-  pending: <RefreshCw className="w-3.5 h-3.5 text-yellow-500" />,
-  error: <AlertCircle className="w-3.5 h-3.5 text-red-500" />,
-  not_synced: <Minus className="w-3.5 h-3.5 text-gray-400" />,
-}
-
-const syncStatusLabel = {
-  synced: 'Synced',
-  pending: 'Na čekanju',
-  error: 'Greška',
-  not_synced: 'Nije sinkronizirano',
-}
-
-export default function RecipeCard({ recipe, onDelete, onDuplicate, onSync }) {
+export default function RecipeCard({ recipe, onDelete, onDuplicate }) {
+  const [exporting, setExporting] = useState(false)
   const totalTime = (recipe.prep_time || 0) + (recipe.cook_time || 0)
+
+  const handleExportZip = async (e) => {
+    e.preventDefault()
+    setExporting(true)
+    try {
+      const res = await cookidooApi.exportZip(recipe.id)
+      const url = window.URL.createObjectURL(new Blob([res.data]))
+      const a = document.createElement('a')
+      a.href = url
+      a.download = `${recipe.slug || recipe.id}.zip`
+      a.click()
+      window.URL.revokeObjectURL(url)
+      toast.success('ZIP preuzet — uvezi ga u Cookidoo → Moji recepti')
+    } catch {
+      toast.error('Greška pri izvozu')
+    } finally {
+      setExporting(false)
+    }
+  }
 
   return (
     <div className="card hover:shadow-md transition-shadow duration-200 group">
@@ -41,10 +50,6 @@ export default function RecipeCard({ recipe, onDelete, onDuplicate, onSync }) {
               <ChefHat className="w-16 h-16 text-thermomix-300" />
             </div>
           )}
-          <div className="absolute top-2 right-2 flex items-center gap-1 bg-white/90 backdrop-blur-sm rounded-full px-2 py-1 text-xs">
-            {syncStatusIcon[recipe.cookidoo_sync_status] || syncStatusIcon.not_synced}
-            <span className="text-gray-600">{syncStatusLabel[recipe.cookidoo_sync_status] || 'Nije sinkronizirano'}</span>
-          </div>
         </div>
       </Link>
 
@@ -78,9 +83,7 @@ export default function RecipeCard({ recipe, onDelete, onDuplicate, onSync }) {
         {recipe.tags?.length > 0 && (
           <div className="flex flex-wrap gap-1 mb-3">
             {recipe.tags.slice(0, 3).map((tag) => (
-              <span key={tag.id} className="badge bg-gray-100 text-gray-600">
-                {tag.name}
-              </span>
+              <span key={tag.id} className="badge bg-gray-100 text-gray-600">{tag.name}</span>
             ))}
             {recipe.tags.length > 3 && (
               <span className="badge bg-gray-100 text-gray-400">+{recipe.tags.length - 3}</span>
@@ -102,10 +105,12 @@ export default function RecipeCard({ recipe, onDelete, onDuplicate, onSync }) {
             Kopiraj
           </button>
           <button
-            onClick={() => onSync(recipe.id)}
-            className="flex-1 text-center text-xs text-gray-600 hover:text-green-600 py-1 rounded hover:bg-green-50 transition-colors"
+            onClick={handleExportZip}
+            disabled={exporting}
+            className="flex-1 text-center text-xs text-thermomix-600 hover:text-thermomix-800 py-1 rounded hover:bg-thermomix-50 transition-colors flex items-center justify-center gap-1"
           >
-            Sync
+            {exporting ? <Loader className="w-3 h-3 animate-spin" /> : <Download className="w-3 h-3" />}
+            Cookidoo
           </button>
           <button
             onClick={() => onDelete(recipe.id)}

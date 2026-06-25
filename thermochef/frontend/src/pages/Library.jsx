@@ -1,8 +1,8 @@
 import { useState, useEffect, useCallback } from 'react'
 import { Link } from 'react-router-dom'
-import { Plus, Search, Filter, Grid, List, RefreshCw, Download } from 'lucide-react'
+import { Plus, Search, Grid, List, Download } from 'lucide-react'
 import toast from 'react-hot-toast'
-import { recipesApi, cookidooApi } from '../api/client'
+import { recipesApi } from '../api/client'
 import RecipeCard from '../components/RecipeCard'
 
 const DIFFICULTIES = [
@@ -20,7 +20,6 @@ export default function Library() {
   const [tagFilter, setTagFilter] = useState('')
   const [difficultyFilter, setDifficultyFilter] = useState('')
   const [viewMode, setViewMode] = useState('grid')
-  const [syncing, setSyncing] = useState(false)
 
   const fetchRecipes = useCallback(async () => {
     setLoading(true)
@@ -67,36 +66,6 @@ export default function Library() {
     }
   }
 
-  const handleSync = async (id) => {
-    try {
-      const res = await cookidooApi.syncOne(id)
-      if (res.data.success) {
-        toast.success('Recept sinkroniziran s Cookidoo')
-        fetchRecipes()
-      } else {
-        toast.error(res.data.error || 'Sinkronizacija nije uspjela')
-      }
-    } catch (e) {
-      toast.error(e.response?.data?.detail || 'Greška pri sinkronizaciji')
-    }
-  }
-
-  const handleBulkSync = async () => {
-    setSyncing(true)
-    try {
-      const res = await cookidooApi.syncBulk()
-      const { results } = res.data
-      const ok = results.filter((r) => r.success).length
-      const fail = results.filter((r) => !r.success).length
-      toast.success(`Sinkronizirano: ${ok} recepata${fail > 0 ? `, ${fail} grešaka` : ''}`)
-      fetchRecipes()
-    } catch {
-      toast.error('Greška pri grupnoj sinkronizaciji')
-    } finally {
-      setSyncing(false)
-    }
-  }
-
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Header */}
@@ -106,10 +75,6 @@ export default function Library() {
           <p className="text-gray-500 text-sm mt-1">{recipes.length} recepata u bazi</p>
         </div>
         <div className="flex items-center gap-2">
-          <button onClick={handleBulkSync} disabled={syncing} className="btn-secondary">
-            <RefreshCw className={`w-4 h-4 ${syncing ? 'animate-spin' : ''}`} />
-            {syncing ? 'Sinkronizacija...' : 'Sync sve'}
-          </button>
           <Link to="/import" className="btn-secondary">
             <Download className="w-4 h-4" /> Uvoz
           </Link>
@@ -187,7 +152,6 @@ export default function Library() {
               recipe={recipe}
               onDelete={handleDelete}
               onDuplicate={handleDuplicate}
-              onSync={handleSync}
             />
           ))}
         </div>
@@ -215,7 +179,6 @@ export default function Library() {
               </div>
               <div className="flex items-center gap-1 shrink-0">
                 <Link to={`/recipes/${recipe.id}/edit`} className="btn-secondary py-1 px-2 text-xs">Uredi</Link>
-                <button onClick={() => handleSync(recipe.id)} className="btn-secondary py-1 px-2 text-xs">Sync</button>
                 <button onClick={() => handleDelete(recipe.id)} className="btn-danger py-1 px-2 text-xs">Briši</button>
               </div>
             </div>
