@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>ThermoChef</title>
+  <script>
+    // GitHub Pages SPA routing workaround.
+    // Encodes the current path into a query param, then redirects to index.html.
+    var l = window.location;
+    var base = '/THERMOMIX';
+    var path = l.pathname.slice(base.length) || '/';
+    l.replace(
+      l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+      base + '/?p=' + encodeURIComponent(path + l.search) +
+      (l.hash ? '&h=' + encodeURIComponent(l.hash) : '')
+    );
+  </script>
+</head>
+<body></body>
+</html>

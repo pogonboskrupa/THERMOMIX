@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="hr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="description" content="ThermoChef – Thermomix recipe manager with Cookidoo integration" />
+    <meta name="theme-color" content="#f97316" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="ThermoChef" />
+
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png" />
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+    <link rel="manifest" href="/THERMOMIX/manifest.json" />
+
+    <title>ThermoChef</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- GitHub Pages SPA routing: restore path from ?p= query param -->
+    <script>
+      (function() {
+        var p = new URLSearchParams(window.location.search).get('p');
+        if (p) {
+          var base = '/THERMOMIX';
+          window.history.replaceState(
+            null, null,
+            base + decodeURIComponent(p).replace(/^([^?#]*)(\?[^#]*)?(#.*)?$/, function(_, path, qs, hash) {
+              return path + (qs || '') + (hash || '');
+            })
+          );
+        }
+      })();
+    </script>
+    <script type="module" crossorigin src="/THERMOMIX/assets/index-Q8YuIp2E.js"></script>
+    <link rel="stylesheet" crossorigin href="/THERMOMIX/assets/index-vEBsG167.css">
+  <script id="vite-plugin-pwa:register-sw" src="/THERMOMIX/registerSW.js"></script></head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>

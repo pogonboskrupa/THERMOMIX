@@ -1,0 +1,1 @@
+if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('/THERMOMIX/sw.js', { scope: '/THERMOMIX/' })})}
