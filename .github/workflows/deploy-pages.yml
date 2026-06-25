@@ -3,7 +3,6 @@ name: Deploy ThermoChef to GitHub Pages
 on:
   push:
     branches:
-      - main
       - claude/affectionate-meitner-in6fna
   workflow_dispatch:
 
