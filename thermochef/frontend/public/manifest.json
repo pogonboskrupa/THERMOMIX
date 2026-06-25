@@ -1,0 +1,51 @@
+{
+  "name": "ThermoChef",
+  "short_name": "ThermoChef",
+  "description": "Thermomix recipe manager with Cookidoo integration",
+  "start_url": "/THERMOMIX/",
+  "scope": "/THERMOMIX/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#f97316",
+  "background_color": "#fff7ed",
+  "categories": ["food", "lifestyle", "utilities"],
+  "lang": "hr",
+  "icons": [
+    {
+      "src": "/THERMOMIX/icons/favicon-32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/THERMOMIX/icons/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/THERMOMIX/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/THERMOMIX/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Uvoz recepta",
+      "short_name": "Uvoz",
+      "url": "/THERMOMIX/import",
+      "icons": [{ "src": "/THERMOMIX/icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Novi recept",
+      "short_name": "Novi",
+      "url": "/THERMOMIX/recipes/new",
+      "icons": [{ "src": "/THERMOMIX/icons/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}

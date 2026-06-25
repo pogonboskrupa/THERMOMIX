@@ -1,30 +1,57 @@
 import { useState, useEffect } from 'react'
-import { Save, CheckCircle, AlertCircle, Loader, Download, LogOut, Wifi, WifiOff } from 'lucide-react'
+import { Save, Loader, Download, LogOut, Wifi, WifiOff, Server, CheckCircle, AlertCircle, RefreshCw } from 'lucide-react'
 import toast from 'react-hot-toast'
-import { settingsApi, cookidooApi } from '../api/client'
+import { settingsApi, cookidooApi, getApiUrl, setApiUrl, DEFAULT_API_URL } from '../api/client'
 
 export default function Settings() {
   const [settings, setSettings] = useState({ language: 'hr', scraper_timeout: '30', theme: 'light' })
   const [cookidooStatus, setCookidooStatus] = useState(null)
   const [tokenInfo, setTokenInfo] = useState(null)
   const [cookidooForm, setCookidooForm] = useState({ email: '', password: '', country: 'HR', language: 'hr-HR' })
-  const [loading, setLoading] = useState(false)
   const [testingConn, setTestingConn] = useState(false)
   const [loggingIn, setLoggingIn] = useState(false)
   const [exporting, setExporting] = useState(false)
+  const [apiUrl, setApiUrlState] = useState(getApiUrl)
+  const [apiStatus, setApiStatus] = useState(null) // 'ok' | 'error' | null
 
   useEffect(() => {
-    settingsApi.getAll().then((r) => setSettings(r.data)).catch(() => {})
-    cookidooApi.status().then((r) => setCookidooStatus(r.data)).catch(() => {})
-    cookidooApi.tokenInfo().then((r) => setTokenInfo(r.data)).catch(() => {})
+    checkApiStatus()
   }, [])
+
+  const checkApiStatus = async () => {
+    try {
+      const r = await fetch(`${getApiUrl()}/api/health`)
+      if (r.ok) {
+        setApiStatus('ok')
+        settingsApi.getAll().then((r) => setSettings(r.data)).catch(() => {})
+        cookidooApi.status().then((r) => setCookidooStatus(r.data)).catch(() => {})
+        cookidooApi.tokenInfo().then((r) => setTokenInfo(r.data)).catch(() => {})
+      } else {
+        setApiStatus('error')
+      }
+    } catch {
+      setApiStatus('error')
+    }
+  }
+
+  const handleSaveApiUrl = () => {
+    setApiUrl(apiUrl.trim())
+    toast.success('Backend URL spremljen')
+    setTimeout(checkApiStatus, 300)
+  }
+
+  const handleResetApiUrl = () => {
+    setApiUrlState(DEFAULT_API_URL)
+    setApiUrl(DEFAULT_API_URL)
+    setTimeout(checkApiStatus, 300)
+  }
 
   const handleSettingSave = async (key, value) => {
     try {
       await settingsApi.update(key, value)
       toast.success('Postavka spremljena')
     } catch {
-      toast.error('Greška pri spremanju')
+      toast.error('Backend nije dostupan')
     }
   }
 
@@ -92,6 +119,61 @@ export default function Settings() {
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
       <h1 className="text-2xl font-bold text-gray-900">Postavke</h1>
 
+      {/* Backend Server */}
+      <div className="card p-6">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="font-semibold text-gray-900 flex items-center gap-2">
+            <Server className="w-4 h-4 text-thermomix-500" /> Backend server
+          </h2>
+          {apiStatus === 'ok' && (
+            <span className="badge bg-green-100 text-green-700 flex items-center gap-1">
+              <CheckCircle className="w-3.5 h-3.5" /> Spojen
+            </span>
+          )}
+          {apiStatus === 'error' && (
+            <span className="badge bg-red-100 text-red-700 flex items-center gap-1">
+              <AlertCircle className="w-3.5 h-3.5" /> Nije dostupan
+            </span>
+          )}
+        </div>
+
+        <p className="text-sm text-gray-500 mb-3">
+          ThermoChef zahtijeva Python FastAPI backend za uvoz, OCR i Cookidoo sinkronizaciju.
+          Za lokalni rad: <code className="bg-gray-100 px-1 rounded">./start.sh</code> u mapi projekta.
+        </p>
+
+        <div className="flex gap-2">
+          <input
+            className="input flex-1 font-mono text-sm"
+            value={apiUrl}
+            onChange={(e) => setApiUrlState(e.target.value)}
+            placeholder="http://localhost:8000"
+          />
+          <button onClick={handleSaveApiUrl} className="btn-primary">
+            <Save className="w-4 h-4" /> Spremi
+          </button>
+          <button onClick={checkApiStatus} className="btn-secondary">
+            <RefreshCw className="w-4 h-4" />
+          </button>
+        </div>
+
+        {apiUrl !== DEFAULT_API_URL && (
+          <button onClick={handleResetApiUrl} className="text-xs text-gray-400 hover:text-gray-600 mt-2">
+            Resetiraj na {DEFAULT_API_URL}
+          </button>
+        )}
+
+        {apiStatus === 'error' && (
+          <div className="mt-3 p-3 bg-amber-50 border border-amber-200 rounded-lg text-sm text-amber-700">
+            <p className="font-medium">Backend nije dostupan</p>
+            <p className="mt-1 text-amber-600">
+              Pokrenite backend: <code className="bg-amber-100 px-1 rounded">cd thermochef && ./start.sh</code><br />
+              Ili hostate backend na besplatnom servisu (Railway, Render, Fly.io) i postavite URL gore.
+            </p>
+          </div>
+        )}
+      </div>
+
       {/* Cookidoo Section */}
       <div className="card p-6">
         <div className="flex items-center justify-between mb-4">
@@ -107,20 +189,19 @@ export default function Settings() {
           )}
         </div>
 
-        {/* API approach note */}
         <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 mb-4 text-sm text-amber-700">
-          <p className="font-medium">ℹ️ Napomena o Cookidoo API integraciji</p>
+          <p className="font-medium">ℹ️ Napomena</p>
           <p className="mt-1 text-amber-600">
-            Cookidoo nema javno dostupan API. ThermoChef koristi neformalni reverse-engineered API koji može prestati raditi bez upozorenja.
-            Kao alternativu koristite <strong>Export ZIP</strong> funkciju za ručni uvoz u Cookidoo.
+            Cookidoo nema javni API. Koristi se neformalni (reverse-engineered) API koji može prestati raditi.
+            Alternativa: <strong>Export ZIP</strong> za ručni uvoz.
           </p>
         </div>
 
         {tokenInfo?.has_tokens ? (
           <div className="space-y-3">
             <div className="bg-gray-50 rounded-lg p-3 text-sm">
-              <p className="text-gray-600">Prijavljeni kao: <span className="font-medium">{tokenInfo.email}</span></p>
-              <p className="text-gray-500">Zemlja: {tokenInfo.country} · Jezik: {tokenInfo.language}</p>
+              <p>Prijavljeni kao: <span className="font-medium">{tokenInfo.email}</span></p>
+              <p className="text-gray-500">Zemlja: {tokenInfo.country}</p>
             </div>
             <div className="flex gap-2">
               <button onClick={handleTestConnection} disabled={testingConn} className="btn-secondary">
@@ -136,89 +217,69 @@ export default function Settings() {
           <form onSubmit={handleCookidooLogin} className="space-y-3">
             <div className="grid grid-cols-2 gap-3">
               <div className="col-span-2">
-                <label className="label">E-mail adresa</label>
-                <input
-                  className="input"
-                  type="email"
-                  required
+                <label className="label">E-mail</label>
+                <input className="input" type="email" required
                   value={cookidooForm.email}
-                  onChange={(e) => setCookidooForm((f) => ({ ...f, email: e.target.value }))}
-                  placeholder="vas@email.com"
-                />
+                  onChange={(e) => setCookidooForm((f) => ({ ...f, email: e.target.value }))} />
               </div>
               <div className="col-span-2">
                 <label className="label">Lozinka</label>
-                <input
-                  className="input"
-                  type="password"
-                  required
+                <input className="input" type="password" required
                   value={cookidooForm.password}
-                  onChange={(e) => setCookidooForm((f) => ({ ...f, password: e.target.value }))}
-                  placeholder="••••••••"
-                />
+                  onChange={(e) => setCookidooForm((f) => ({ ...f, password: e.target.value }))} />
               </div>
               <div>
                 <label className="label">Zemlja</label>
-                <select className="input" value={cookidooForm.country} onChange={(e) => setCookidooForm((f) => ({ ...f, country: e.target.value }))}>
+                <select className="input" value={cookidooForm.country}
+                  onChange={(e) => setCookidooForm((f) => ({ ...f, country: e.target.value }))}>
                   <option value="HR">Hrvatska</option>
                   <option value="DE">Njemačka</option>
                   <option value="AT">Austrija</option>
                   <option value="CH">Švicarska</option>
                   <option value="GB">Velika Britanija</option>
-                  <option value="US">SAD</option>
                 </select>
               </div>
               <div>
-                <label className="label">Jezik sučelja</label>
-                <select className="input" value={cookidooForm.language} onChange={(e) => setCookidooForm((f) => ({ ...f, language: e.target.value }))}>
+                <label className="label">Jezik</label>
+                <select className="input" value={cookidooForm.language}
+                  onChange={(e) => setCookidooForm((f) => ({ ...f, language: e.target.value }))}>
                   <option value="hr-HR">Hrvatski</option>
                   <option value="de-DE">Deutsch</option>
                   <option value="en-GB">English</option>
                 </select>
               </div>
             </div>
-            <button type="submit" disabled={loggingIn} className="btn-primary">
-              {loggingIn ? <Loader className="w-4 h-4 animate-spin" /> : null}
+            <button type="submit" disabled={loggingIn || apiStatus === 'error'} className="btn-primary">
+              {loggingIn && <Loader className="w-4 h-4 animate-spin" />}
               {loggingIn ? 'Prijava...' : 'Prijavi se na Cookidoo'}
             </button>
           </form>
         )}
       </div>
 
-      {/* App Settings */}
+      {/* App settings */}
       <div className="card p-6">
         <h2 className="font-semibold text-gray-900 mb-4">Opće postavke</h2>
         <div className="space-y-4">
           <div>
-            <label className="label">Zadani jezik recepta</label>
-            <select
-              className="input"
-              value={settings.language}
+            <label className="label">Zadani jezik</label>
+            <select className="input" value={settings.language}
               onChange={(e) => {
                 setSettings((s) => ({ ...s, language: e.target.value }))
                 handleSettingSave('language', e.target.value)
-              }}
-            >
+              }}>
               <option value="hr">Hrvatski</option>
               <option value="en">English</option>
               <option value="de">Deutsch</option>
             </select>
           </div>
           <div>
-            <label className="label">Timeout za scraper (sekunde)</label>
+            <label className="label">Scraper timeout (sekunde)</label>
             <div className="flex gap-2">
-              <input
-                className="input"
-                type="number"
-                min={5}
-                max={120}
+              <input className="input" type="number" min={5} max={120}
                 value={settings.scraper_timeout}
-                onChange={(e) => setSettings((s) => ({ ...s, scraper_timeout: e.target.value }))}
-              />
-              <button
-                onClick={() => handleSettingSave('scraper_timeout', settings.scraper_timeout)}
-                className="btn-secondary"
-              >
+                onChange={(e) => setSettings((s) => ({ ...s, scraper_timeout: e.target.value }))} />
+              <button onClick={() => handleSettingSave('scraper_timeout', settings.scraper_timeout)} className="btn-secondary">
                 <Save className="w-4 h-4" />
               </button>
             </div>
@@ -229,22 +290,32 @@ export default function Settings() {
       {/* Backup */}
       <div className="card p-6">
         <h2 className="font-semibold text-gray-900 mb-2">Backup baze podataka</h2>
-        <p className="text-sm text-gray-500 mb-4">
-          Izvezite sve recepte kao JSON datoteku. Možete je koristiti za backup ili prijenos na drugi uređaj.
-        </p>
-        <button onClick={handleExport} disabled={exporting} className="btn-primary">
+        <p className="text-sm text-gray-500 mb-4">Izvezite sve recepte kao JSON datoteku.</p>
+        <button onClick={handleExport} disabled={exporting || apiStatus === 'error'} className="btn-primary">
           {exporting ? <Loader className="w-4 h-4 animate-spin" /> : <Download className="w-4 h-4" />}
           {exporting ? 'Izvoz...' : 'Izvezi sve recepte (JSON)'}
         </button>
+      </div>
+
+      {/* PWA info */}
+      <div className="card p-6">
+        <h2 className="font-semibold text-gray-900 mb-2">Instalacija aplikacije</h2>
+        <p className="text-sm text-gray-500 mb-3">
+          ThermoChef je PWA (Progressive Web App) – možete je instalirati na telefon ili računalo za brži pristup.
+        </p>
+        <div className="space-y-1 text-sm text-gray-600">
+          <p>📱 <strong>Android/Chrome:</strong> Tap "Dodaj na početni zaslon" u meniju preglednika</p>
+          <p>🍎 <strong>iOS/Safari:</strong> Tap Share → "Dodaj na početni zaslon"</p>
+          <p>💻 <strong>Desktop:</strong> Klikni ikonu instalacije u adresnoj traci</p>
+        </div>
       </div>
 
       {/* About */}
       <div className="card p-6">
         <h2 className="font-semibold text-gray-900 mb-2">O aplikaciji</h2>
         <div className="text-sm text-gray-500 space-y-1">
-          <p>ThermoChef v1.0.0</p>
-          <p>Thermomix recipe manager s Cookidoo integracijom</p>
-          <p className="text-xs mt-2">Cookidoo® je registrirani zaštitni znak tvrtke Vorwerk. Ova aplikacija nije službeni Vorwerk proizvod.</p>
+          <p>ThermoChef v1.0.0 · PWA + GitHub Pages</p>
+          <p className="text-xs mt-2">Cookidoo® je zaštitni znak Vorwerk. Ova aplikacija nije službeni Vorwerk proizvod.</p>
         </div>
       </div>
     </div>

@@ -1,0 +1,53 @@
+name: Deploy ThermoChef to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+      - claude/affectionate-meitner-in6fna
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: thermochef/frontend/package-lock.json
+
+      - name: Install dependencies
+        working-directory: thermochef/frontend
+        run: npm ci
+
+      - name: Build PWA
+        working-directory: thermochef/frontend
+        env:
+          GITHUB_PAGES: 'true'
+        run: npm run build
+
+      - name: Add .nojekyll
+        run: touch thermochef/frontend/dist/.nojekyll
+
+      - name: Deploy to gh-pages branch
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: thermochef/frontend/dist
+          publish_branch: gh-pages
+          force_orphan: true
+          commit_message: "deploy: ${{ github.sha }}"
