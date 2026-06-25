@@ -30,11 +30,11 @@ export const FEATURED_RECIPES = [
       { quantity: '0.5', unit: 'žličica', name: 'bijeli papar', preparation_note: '', order_idx: 9 },
     ],
     steps: [
-      { order_idx: 0, instruction: 'Stavite luk, mrkvu i celer u posudu i nasjeckajte.', duration_seconds: null, temperature: null, speed: 5, accessory: null },
-      { order_idx: 1, instruction: 'Dodajte maslac i pirjajte povrće.', duration_seconds: 300, temperature: 100, speed: 1, accessory: null },
-      { order_idx: 2, instruction: 'Dodajte brašno i miješajte.', duration_seconds: 120, temperature: 100, speed: 2, accessory: null },
-      { order_idx: 3, instruction: 'Dodajte pileće meso, temeljac, sol i papar. Kuhajte.', duration_seconds: 1800, temperature: 100, speed: 1, accessory: null },
-      { order_idx: 4, instruction: 'Izvadite meso, nasjeckajte i vratite u čorbu. Dodajte kiselo vrhnje i miješajte.', duration_seconds: 120, temperature: 80, speed: 2, accessory: null },
+      { order_idx: 0, instruction: 'Stavite luk, mrkvu i celer u posudu i nasjeckajte.', duration_seconds: null, temperature: null, speed: "5", accessory: null },
+      { order_idx: 1, instruction: 'Dodajte maslac i pirjajte povrće.', duration_seconds: 300, temperature: "100", speed: "1", accessory: null },
+      { order_idx: 2, instruction: 'Dodajte brašno i miješajte.', duration_seconds: 120, temperature: "100", speed: "2", accessory: null },
+      { order_idx: 3, instruction: 'Dodajte pileće meso, temeljac, sol i papar. Kuhajte.', duration_seconds: 1800, temperature: "100", speed: "1", accessory: null },
+      { order_idx: 4, instruction: 'Izvadite meso, nasjeckajte i vratite u čorbu. Dodajte kiselo vrhnje i miješajte.', duration_seconds: 120, temperature: "80", speed: "2", accessory: null },
     ],
   },
   {
@@ -61,10 +61,10 @@ export const FEATURED_RECIPES = [
       { quantity: '2', unit: 'žlice', name: 'ulje', preparation_note: '', order_idx: 10 },
     ],
     steps: [
-      { order_idx: 0, instruction: 'Ubacite češnjak i nasjeckajte.', duration_seconds: null, temperature: null, speed: 5, accessory: null },
-      { order_idx: 1, instruction: 'Dodajte ulje i meso te zapecite.', duration_seconds: 300, temperature: 120, speed: 1, accessory: null },
+      { order_idx: 0, instruction: 'Ubacite češnjak i nasjeckajte.', duration_seconds: null, temperature: null, speed: "5", accessory: null },
+      { order_idx: 1, instruction: 'Dodajte ulje i meso te zapecite.', duration_seconds: 300, temperature: "120", speed: "1", accessory: null },
       { order_idx: 2, instruction: 'Dodajte sve povrće, vodu, sol i papar.', duration_seconds: null, temperature: null, speed: null, accessory: null },
-      { order_idx: 3, instruction: 'Kuhajte na laganoj vatri dok meso ne omekša.', duration_seconds: 5400, temperature: 90, speed: 0.5, accessory: null },
+      { order_idx: 3, instruction: 'Kuhajte na laganoj vatri dok meso ne omekša.', duration_seconds: 5400, temperature: "90", speed: "0.5", accessory: null },
     ],
   },
   {
@@ -89,11 +89,11 @@ export const FEATURED_RECIPES = [
       { quantity: '2', unit: 'žlice', name: 'maslac', preparation_note: '', order_idx: 8 },
     ],
     steps: [
-      { order_idx: 0, instruction: 'Nasjeckajte luk sitno.', duration_seconds: null, temperature: null, speed: 5, accessory: null },
-      { order_idx: 1, instruction: 'Zamijesite tijesto od brašna, jajeta i tople vode. Ostavite da odmori 30 minuta.', duration_seconds: 60, temperature: null, speed: 4, accessory: null },
+      { order_idx: 0, instruction: 'Nasjeckajte luk sitno.', duration_seconds: null, temperature: null, speed: "5", accessory: null },
+      { order_idx: 1, instruction: 'Zamijesite tijesto od brašna, jajeta i tople vode. Ostavite da odmori 30 minuta.', duration_seconds: 60, temperature: null, speed: "4", accessory: null },
       { order_idx: 2, instruction: 'Pomiješajte meso s lukom i soli za nadjev.', duration_seconds: null, temperature: null, speed: null, accessory: null },
       { order_idx: 3, instruction: 'Razvucite tijesto, izrežite kvadrate 8x8 cm, stavite nadjev i sklopite.', duration_seconds: null, temperature: null, speed: null, accessory: null },
-      { order_idx: 4, instruction: 'Kuhajte klepe na pari.', duration_seconds: 1200, temperature: 100, speed: null, accessory: 'Varoma' },
+      { order_idx: 4, instruction: 'Kuhajte klepe na pari.', duration_seconds: 1200, temperature: "100", speed: null, accessory: 'Varoma' },
       { order_idx: 5, instruction: 'Pomiješajte kiselo mlijeko s češnjakom i prelijte klepe. Poprskajte rastopljenim maslacom.', duration_seconds: null, temperature: null, speed: null, accessory: null },
     ],
   },
@@ -117,9 +117,9 @@ export const FEATURED_RECIPES = [
       { quantity: '1', unit: 'žličica', name: 'crvena paprika', preparation_note: 'mljevena', order_idx: 6 },
     ],
     steps: [
-      { order_idx: 0, instruction: 'Nasjeckajte luk i mrkvu.', duration_seconds: null, temperature: null, speed: 5, accessory: null },
-      { order_idx: 1, instruction: 'Pirjajte luk i mrkvu s uljem.', duration_seconds: 300, temperature: 100, speed: 1, accessory: null },
-      { order_idx: 2, instruction: 'Dodajte tarhanu, vodu, sol i papriku. Kuhajte miješajući.', duration_seconds: 1800, temperature: 100, speed: 2, accessory: null },
+      { order_idx: 0, instruction: 'Nasjeckajte luk i mrkvu.', duration_seconds: null, temperature: null, speed: "5", accessory: null },
+      { order_idx: 1, instruction: 'Pirjajte luk i mrkvu s uljem.', duration_seconds: 300, temperature: "100", speed: "1", accessory: null },
+      { order_idx: 2, instruction: 'Dodajte tarhanu, vodu, sol i papriku. Kuhajte miješajući.', duration_seconds: 1800, temperature: "100", speed: "2", accessory: null },
     ],
   },
 
@@ -146,12 +146,12 @@ export const FEATURED_RECIPES = [
       { quantity: '1', unit: 'žličica', name: 'sol', preparation_note: '', order_idx: 8 },
     ],
     steps: [
-      { order_idx: 0, instruction: 'Nasjeckajte luk i češnjak.', duration_seconds: null, temperature: null, speed: 5, accessory: null },
-      { order_idx: 1, instruction: 'Pirjajte luk i češnjak s maslinovim uljem.', duration_seconds: 180, temperature: 100, speed: 1, accessory: null },
-      { order_idx: 2, instruction: 'Dodajte rižu i miješajte da se preprži.', duration_seconds: 120, temperature: 100, speed: 2, accessory: null },
-      { order_idx: 3, instruction: 'Dodajte vino i miješajte dok se ne upije.', duration_seconds: 120, temperature: 100, speed: 2, accessory: null },
-      { order_idx: 4, instruction: 'Dodajte temeljac i kuhajte rižoto.', duration_seconds: 1200, temperature: 100, speed: 2, accessory: null },
-      { order_idx: 5, instruction: 'Dodajte maslac i parmezan, miješajte kremasto.', duration_seconds: 60, temperature: 80, speed: 3, accessory: null },
+      { order_idx: 0, instruction: 'Nasjeckajte luk i češnjak.', duration_seconds: null, temperature: null, speed: "5", accessory: null },
+      { order_idx: 1, instruction: 'Pirjajte luk i češnjak s maslinovim uljem.', duration_seconds: 180, temperature: "100", speed: "1", accessory: null },
+      { order_idx: 2, instruction: 'Dodajte rižu i miješajte da se preprži.', duration_seconds: 120, temperature: "100", speed: "2", accessory: null },
+      { order_idx: 3, instruction: 'Dodajte vino i miješajte dok se ne upije.', duration_seconds: 120, temperature: "100", speed: "2", accessory: null },
+      { order_idx: 4, instruction: 'Dodajte temeljac i kuhajte rižoto.', duration_seconds: 1200, temperature: "100", speed: "2", accessory: null },
+      { order_idx: 5, instruction: 'Dodajte maslac i parmezan, miješajte kremasto.', duration_seconds: 60, temperature: "80", speed: "3", accessory: null },
     ],
   },
   {
@@ -173,9 +173,9 @@ export const FEATURED_RECIPES = [
       { quantity: '0.25', unit: 'žličica', name: 'muškatni oraščić', preparation_note: 'nariban', order_idx: 5 },
     ],
     steps: [
-      { order_idx: 0, instruction: 'Stavite maslac i brašno u posudu i kratko zagrijte.', duration_seconds: 120, temperature: 100, speed: 2, accessory: null },
-      { order_idx: 1, instruction: 'Postupno dodajte mlijeko miješajući bez prestanka.', duration_seconds: 60, temperature: null, speed: 4, accessory: null },
-      { order_idx: 2, instruction: 'Kuhajte uz miješanje dok se umak ne zgusne. Dodajte sol, papar i muškatni oraščić.', duration_seconds: 480, temperature: 90, speed: 4, accessory: null },
+      { order_idx: 0, instruction: 'Stavite maslac i brašno u posudu i kratko zagrijte.', duration_seconds: 120, temperature: "100", speed: "2", accessory: null },
+      { order_idx: 1, instruction: 'Postupno dodajte mlijeko miješajući bez prestanka.', duration_seconds: 60, temperature: null, speed: "4", accessory: null },
+      { order_idx: 2, instruction: 'Kuhajte uz miješanje dok se umak ne zgusne. Dodajte sol, papar i muškatni oraščić.', duration_seconds: 480, temperature: "90", speed: "4", accessory: null },
     ],
   },
   {
@@ -202,10 +202,10 @@ export const FEATURED_RECIPES = [
       { quantity: '1', unit: 'žličica', name: 'sol', preparation_note: '', order_idx: 10 },
     ],
     steps: [
-      { order_idx: 0, instruction: 'Nasjeckajte luk, češnjak, mrkvu i celer.', duration_seconds: null, temperature: null, speed: 4, accessory: null },
-      { order_idx: 1, instruction: 'Pirjajte povrće s maslinovim uljem.', duration_seconds: 300, temperature: 100, speed: 1, accessory: null },
-      { order_idx: 2, instruction: 'Dodajte rajčice, temeljac, grah i tikvicu. Kuhajte.', duration_seconds: 1500, temperature: 100, speed: 1, accessory: null },
-      { order_idx: 3, instruction: 'Dodajte tjesteninu i kuhajte do al dente.', duration_seconds: 600, temperature: 100, speed: 1, accessory: null },
+      { order_idx: 0, instruction: 'Nasjeckajte luk, češnjak, mrkvu i celer.', duration_seconds: null, temperature: null, speed: "4", accessory: null },
+      { order_idx: 1, instruction: 'Pirjajte povrće s maslinovim uljem.', duration_seconds: 300, temperature: "100", speed: "1", accessory: null },
+      { order_idx: 2, instruction: 'Dodajte rajčice, temeljac, grah i tikvicu. Kuhajte.', duration_seconds: 1500, temperature: "100", speed: "1", accessory: null },
+      { order_idx: 3, instruction: 'Dodajte tjesteninu i kuhajte do al dente.', duration_seconds: 600, temperature: "100", speed: "1", accessory: null },
     ],
   },
   {
@@ -230,8 +230,8 @@ export const FEATURED_RECIPES = [
     ],
     steps: [
       { order_idx: 0, instruction: 'Ispecite listove lisnatog tijesta prema uputama na pakiranju. Ohladite.', duration_seconds: null, temperature: null, speed: null, accessory: null },
-      { order_idx: 1, instruction: 'Stavite mlijeko, žumanjke, šećer, gustin i vaniliju u posudu. Miješajte dok se ne spoji.', duration_seconds: 30, temperature: null, speed: 4, accessory: null },
-      { order_idx: 2, instruction: 'Kuhajte kremu miješajući dok se ne zgusne.', duration_seconds: 600, temperature: 90, speed: 4, accessory: null },
+      { order_idx: 1, instruction: 'Stavite mlijeko, žumanjke, šećer, gustin i vaniliju u posudu. Miješajte dok se ne spoji.', duration_seconds: 30, temperature: null, speed: "4", accessory: null },
+      { order_idx: 2, instruction: 'Kuhajte kremu miješajući dok se ne zgusne.', duration_seconds: 600, temperature: "90", speed: "4", accessory: null },
       { order_idx: 3, instruction: 'Ohladite kremu na 40°C, zatim dodajte umućeno slatko vrhnje i lagano promiješajte.', duration_seconds: null, temperature: null, speed: null, accessory: 'Leptir nastavak' },
       { order_idx: 4, instruction: 'Složite kremšnite: list tijesta, krema, list tijesta. Pospite šećerom u prahu.', duration_seconds: null, temperature: null, speed: null, accessory: null },
     ],
@@ -260,8 +260,8 @@ export const FEATURED_RECIPES = [
     ],
     steps: [
       { order_idx: 0, instruction: 'Stavite sve sastojke u posudu.', duration_seconds: null, temperature: null, speed: null, accessory: null },
-      { order_idx: 1, instruction: 'Blendajte do glatke kremaste konzistencije.', duration_seconds: 60, temperature: null, speed: 9, accessory: null },
-      { order_idx: 2, instruction: 'Po potrebi dodajte još vode i ponovo blendajte.', duration_seconds: 30, temperature: null, speed: 9, accessory: null },
+      { order_idx: 1, instruction: 'Blendajte do glatke kremaste konzistencije.', duration_seconds: 60, temperature: null, speed: "9", accessory: null },
+      { order_idx: 2, instruction: 'Po potrebi dodajte još vode i ponovo blendajte.', duration_seconds: 30, temperature: null, speed: "9", accessory: null },
     ],
   },
   {
@@ -285,7 +285,7 @@ export const FEATURED_RECIPES = [
     ],
     steps: [
       { order_idx: 0, instruction: 'Stavite sve povrće, češnjak, ulje, ocat i sol u posudu.', duration_seconds: null, temperature: null, speed: null, accessory: null },
-      { order_idx: 1, instruction: 'Blendajte do glatke konzistencije.', duration_seconds: 60, temperature: null, speed: 10, accessory: null },
+      { order_idx: 1, instruction: 'Blendajte do glatke konzistencije.', duration_seconds: 60, temperature: null, speed: "10", accessory: null },
       { order_idx: 2, instruction: 'Rashladite u hladnjaku minimalno 1 sat prije posluživanja.', duration_seconds: null, temperature: null, speed: null, accessory: null },
     ],
   },
@@ -309,8 +309,8 @@ export const FEATURED_RECIPES = [
     ],
     steps: [
       { order_idx: 0, instruction: 'Stavite masline, kapare, inćune i češnjak u posudu.', duration_seconds: null, temperature: null, speed: null, accessory: null },
-      { order_idx: 1, instruction: 'Usitnjujte pulsirajući do grube paste.', duration_seconds: 20, temperature: null, speed: 7, accessory: null },
-      { order_idx: 2, instruction: 'Dodajte maslinovo ulje i sok limuna, kratko izmiješajte.', duration_seconds: 10, temperature: null, speed: 3, accessory: null },
+      { order_idx: 1, instruction: 'Usitnjujte pulsirajući do grube paste.', duration_seconds: 20, temperature: null, speed: "7", accessory: null },
+      { order_idx: 2, instruction: 'Dodajte maslinovo ulje i sok limuna, kratko izmiješajte.', duration_seconds: 10, temperature: null, speed: "3", accessory: null },
     ],
   },
   {
@@ -336,10 +336,10 @@ export const FEATURED_RECIPES = [
       { quantity: '1', unit: 'žličica', name: 'sol', preparation_note: '', order_idx: 9 },
     ],
     steps: [
-      { order_idx: 0, instruction: 'Nasjeckajte luk i češnjak.', duration_seconds: null, temperature: null, speed: 4, accessory: null },
-      { order_idx: 1, instruction: 'Pirjajte luk i češnjak s maslinovim uljem.', duration_seconds: 300, temperature: 100, speed: 1, accessory: null },
-      { order_idx: 2, instruction: 'Dodajte sve povrće, rajčice, začine i sol. Miješajte.', duration_seconds: 120, temperature: 100, speed: 1, accessory: null },
-      { order_idx: 3, instruction: 'Kuhajte na laganoj vatri.', duration_seconds: 1800, temperature: 90, speed: 0.5, accessory: null },
+      { order_idx: 0, instruction: 'Nasjeckajte luk i češnjak.', duration_seconds: null, temperature: null, speed: "4", accessory: null },
+      { order_idx: 1, instruction: 'Pirjajte luk i češnjak s maslinovim uljem.', duration_seconds: 300, temperature: "100", speed: "1", accessory: null },
+      { order_idx: 2, instruction: 'Dodajte sve povrće, rajčice, začine i sol. Miješajte.', duration_seconds: 120, temperature: "100", speed: "1", accessory: null },
+      { order_idx: 3, instruction: 'Kuhajte na laganoj vatri.', duration_seconds: 1800, temperature: "90", speed: "0.5", accessory: null },
     ],
   },
 
@@ -365,11 +365,11 @@ export const FEATURED_RECIPES = [
       { quantity: '1', unit: 'žličica', name: 'sol', preparation_note: '', order_idx: 7 },
     ],
     steps: [
-      { order_idx: 0, instruction: 'Nasjeckajte luk i češnjak.', duration_seconds: null, temperature: null, speed: 5, accessory: null },
-      { order_idx: 1, instruction: 'Pirjajte luk i češnjak s maslinovim uljem.', duration_seconds: 180, temperature: 100, speed: 1, accessory: null },
-      { order_idx: 2, instruction: 'Dodajte rajčice, temeljac, šećer i sol. Kuhajte.', duration_seconds: 900, temperature: 100, speed: 1, accessory: null },
-      { order_idx: 3, instruction: 'Blendajte do glatke teksture.', duration_seconds: 60, temperature: null, speed: 9, accessory: null },
-      { order_idx: 4, instruction: 'Dodajte vrhnje i kratko promiješajte.', duration_seconds: 60, temperature: 80, speed: 3, accessory: null },
+      { order_idx: 0, instruction: 'Nasjeckajte luk i češnjak.', duration_seconds: null, temperature: null, speed: "5", accessory: null },
+      { order_idx: 1, instruction: 'Pirjajte luk i češnjak s maslinovim uljem.', duration_seconds: 180, temperature: "100", speed: "1", accessory: null },
+      { order_idx: 2, instruction: 'Dodajte rajčice, temeljac, šećer i sol. Kuhajte.', duration_seconds: 900, temperature: "100", speed: "1", accessory: null },
+      { order_idx: 3, instruction: 'Blendajte do glatke teksture.', duration_seconds: 60, temperature: null, speed: "9", accessory: null },
+      { order_idx: 4, instruction: 'Dodajte vrhnje i kratko promiješajte.', duration_seconds: 60, temperature: "80", speed: "3", accessory: null },
     ],
   },
   {
@@ -394,11 +394,11 @@ export const FEATURED_RECIPES = [
       { quantity: '1', unit: 'žličica', name: 'sol', preparation_note: '', order_idx: 8 },
     ],
     steps: [
-      { order_idx: 0, instruction: 'Nasjeckajte luk, češnjak, mrkvu i celer.', duration_seconds: null, temperature: null, speed: 5, accessory: null },
-      { order_idx: 1, instruction: 'Pirjajte povrće s maslinovim uljem.', duration_seconds: 300, temperature: 100, speed: 1, accessory: null },
-      { order_idx: 2, instruction: 'Dodajte meso i pirjajte miješajući.', duration_seconds: 300, temperature: 120, speed: 1, accessory: null },
-      { order_idx: 3, instruction: 'Dodajte vino i pričekajte da ispari.', duration_seconds: 180, temperature: 100, speed: 1, accessory: null },
-      { order_idx: 4, instruction: 'Dodajte rajčice i sol. Kuhajte na laganoj vatri.', duration_seconds: 1200, temperature: 90, speed: 1, accessory: null },
+      { order_idx: 0, instruction: 'Nasjeckajte luk, češnjak, mrkvu i celer.', duration_seconds: null, temperature: null, speed: "5", accessory: null },
+      { order_idx: 1, instruction: 'Pirjajte povrće s maslinovim uljem.', duration_seconds: 300, temperature: "100", speed: "1", accessory: null },
+      { order_idx: 2, instruction: 'Dodajte meso i pirjajte miješajući.', duration_seconds: 300, temperature: "120", speed: "1", accessory: null },
+      { order_idx: 3, instruction: 'Dodajte vino i pričekajte da ispari.', duration_seconds: 180, temperature: "100", speed: "1", accessory: null },
+      { order_idx: 4, instruction: 'Dodajte rajčice i sol. Kuhajte na laganoj vatri.', duration_seconds: 1200, temperature: "90", speed: "1", accessory: null },
     ],
   },
   {
@@ -420,7 +420,7 @@ export const FEATURED_RECIPES = [
     ],
     steps: [
       { order_idx: 0, instruction: 'Stavite sve sastojke u posudu.', duration_seconds: null, temperature: null, speed: null, accessory: null },
-      { order_idx: 1, instruction: 'Blendajte do glatke kremaste konzistencije.', duration_seconds: 60, temperature: null, speed: 10, accessory: null },
+      { order_idx: 1, instruction: 'Blendajte do glatke kremaste konzistencije.', duration_seconds: 60, temperature: null, speed: "10", accessory: null },
     ],
   },
   {
@@ -444,11 +444,11 @@ export const FEATURED_RECIPES = [
       { quantity: '1', unit: 'žličica', name: 'sol', preparation_note: '', order_idx: 7 },
     ],
     steps: [
-      { order_idx: 0, instruction: 'Nasjeckajte luk i češnjak.', duration_seconds: null, temperature: null, speed: 5, accessory: null },
-      { order_idx: 1, instruction: 'Pirjajte luk i češnjak s uljem.', duration_seconds: 180, temperature: 100, speed: 1, accessory: null },
-      { order_idx: 2, instruction: 'Dodajte brokulu i temeljac. Kuhajte dok brokula ne omekša.', duration_seconds: 900, temperature: 100, speed: 1, accessory: null },
-      { order_idx: 3, instruction: 'Blendajte do glatke teksture.', duration_seconds: 60, temperature: null, speed: 9, accessory: null },
-      { order_idx: 4, instruction: 'Dodajte vrhnje i sir, miješajte.', duration_seconds: 60, temperature: 80, speed: 3, accessory: null },
+      { order_idx: 0, instruction: 'Nasjeckajte luk i češnjak.', duration_seconds: null, temperature: null, speed: "5", accessory: null },
+      { order_idx: 1, instruction: 'Pirjajte luk i češnjak s uljem.', duration_seconds: 180, temperature: "100", speed: "1", accessory: null },
+      { order_idx: 2, instruction: 'Dodajte brokulu i temeljac. Kuhajte dok brokula ne omekša.', duration_seconds: 900, temperature: "100", speed: "1", accessory: null },
+      { order_idx: 3, instruction: 'Blendajte do glatke teksture.', duration_seconds: 60, temperature: null, speed: "9", accessory: null },
+      { order_idx: 4, instruction: 'Dodajte vrhnje i sir, miješajte.', duration_seconds: 60, temperature: "80", speed: "3", accessory: null },
     ],
   },
 ]

@@ -1,4 +1,4 @@
-from pydantic import BaseModel, HttpUrl
+from pydantic import BaseModel, field_validator
 from typing import Optional, List, Any
 from datetime import datetime
 
@@ -16,6 +16,11 @@ class IngredientBase(BaseModel):
     quantity: str = ""
     unit: str = ""
     preparation_note: str = ""
+
+    @field_validator('quantity', 'unit', 'preparation_note', mode='before')
+    @classmethod
+    def none_to_str(cls, v):
+        return v if v is not None else ""
 
 
 class IngredientCreate(IngredientBase):
@@ -36,6 +41,23 @@ class StepBase(BaseModel):
     temperature: Optional[str] = None
     speed: Optional[str] = None
     accessory: Optional[str] = None
+
+    @field_validator('temperature', 'speed', 'accessory', mode='before')
+    @classmethod
+    def coerce_to_str(cls, v):
+        if v is None:
+            return None
+        return str(v)
+
+    @field_validator('duration_seconds', mode='before')
+    @classmethod
+    def coerce_duration(cls, v):
+        if v is None:
+            return None
+        try:
+            return int(float(v))
+        except (ValueError, TypeError):
+            return None
 
 
 class StepCreate(StepBase):
@@ -60,6 +82,11 @@ class RecipeBase(BaseModel):
     difficulty: str = "medium"
     language: str = "hr"
 
+    @field_validator('description', 'source_url', 'image_url', 'language', mode='before')
+    @classmethod
+    def none_to_str(cls, v):
+        return v if v is not None else ""
+
 
 class RecipeCreate(RecipeBase):
     ingredients: List[IngredientCreate] = []
@@ -77,8 +104,8 @@ class RecipeUpdate(RecipeBase):
 class RecipeSchema(RecipeBase):
     id: int
     slug: str
-    created_at: datetime
-    updated_at: datetime
+    created_at: Optional[datetime] = None
+    updated_at: Optional[datetime] = None
     cookidoo_id: str = ""
     cookidoo_synced_at: Optional[datetime] = None
     cookidoo_sync_status: str = "not_synced"
@@ -86,17 +113,27 @@ class RecipeSchema(RecipeBase):
     steps: List[StepSchema] = []
     tags: List[TagSchema] = []
 
+    @field_validator('cookidoo_id', 'cookidoo_sync_status', mode='before')
+    @classmethod
+    def none_to_str(cls, v):
+        return v if v is not None else ""
+
     model_config = {"from_attributes": True}
 
 
 class RecipeListSchema(RecipeBase):
     id: int
     slug: str
-    created_at: datetime
-    updated_at: datetime
+    created_at: Optional[datetime] = None
+    updated_at: Optional[datetime] = None
     cookidoo_id: str = ""
     cookidoo_sync_status: str = "not_synced"
     tags: List[TagSchema] = []
+
+    @field_validator('cookidoo_id', 'cookidoo_sync_status', mode='before')
+    @classmethod
+    def none_to_str(cls, v):
+        return v if v is not None else ""
 
     model_config = {"from_attributes": True}
 
