@@ -1,8 +1,9 @@
 import { Link, useLocation } from 'react-router-dom'
-import { ChefHat, BookOpen, Upload, Settings, Zap } from 'lucide-react'
+import { ChefHat, BookOpen, Upload, Settings, Globe } from 'lucide-react'
 
 const navItems = [
   { path: '/', label: 'Recepti', icon: BookOpen },
+  { path: '/discover', label: 'Otkrijte', icon: Globe },
   { path: '/import', label: 'Uvoz', icon: Upload },
   { path: '/settings', label: 'Postavke', icon: Settings },
 ]

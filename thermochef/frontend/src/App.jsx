@@ -3,6 +3,7 @@ import { Toaster } from 'react-hot-toast'
 import Navigation from './components/Navigation'
 import PWAInstallBanner from './components/PWAInstallBanner'
 import Library from './pages/Library'
+import Discover from './pages/Discover'
 import RecipeDetail from './pages/RecipeDetail'
 import RecipeEdit from './pages/RecipeEdit'
 import RecipeNew from './pages/RecipeNew'
@@ -26,6 +27,7 @@ export default function App() {
             <Route path="/recipes/new" element={<RecipeNew />} />
             <Route path="/recipes/:id" element={<RecipeDetail />} />
             <Route path="/recipes/:id/edit" element={<RecipeEdit />} />
+            <Route path="/discover" element={<Discover />} />
             <Route path="/import" element={<Import />} />
             <Route path="/settings" element={<Settings />} />
           </Routes>
